@@ -93,10 +93,15 @@ Body (JSON):
 
 {
   "name": "Umer Awan",
+  
   "email": "iamumerdaud@gmail.com",
+
   "phone": "0341-9322367",
+  
   "education": "BSCS - Abbottabad University",
+  
   "skills": "React, Next.js, Redux"
+  
 }
 
 Get All Resumes
