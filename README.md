@@ -1,6 +1,6 @@
 AI-Powered Resume Builder
 
-An AI-powered Resume Builder with Frontend (React + Vite) and Backend (Node.js + Express + MongoDB).
+An AI-powered Resume Builder with Frontend (React + Vite) and Backend (Node.js + Express + Postgres).
 This app allows users to create, preview, and save resumes in a database, with an AI integration planned for smart suggestions.
 
 🚀 Features
@@ -19,22 +19,38 @@ This app allows users to create, preview, and save resumes in a database, with a
 
 🏗 Project Structure
 resume-builder/
-│── backend/           # Node.js + Express + MongoDB
-│   ├── models/        # Mongoose models
-│   ├── routes/        # API routes
-│   ├── server.js      # Express server
-│── frontend/          # React + Vite + Tailwind
+
+│── server/       
+# Node.js + Express + MongoDB
+
+│   ├── models/    
+# Mongoose models
+
+│   ├── routes/   
+# API routes
+
+│   ├── server.js  
+# Express server
+
+│── client/        
+# React + Vite + Tailwind
+
 │   ├── src/
+
 │   │   ├── components # ResumeForm, ResumePreview
+
 │   │   ├── App.jsx
+
 │   │   └── main.jsx
+
 │── README.md
+
 
 ⚙️ Tech Stack
 
 Frontend: React, Vite, Tailwind CSS
 Backend: Node.js, Express.js
-Database: MongoDB + Mongoose
+Database: Postgres
 
 🔧 Installation & Setup
 1️⃣ Clone Repository
@@ -49,7 +65,7 @@ npm install
 Create a .env file in backend/ with:
 
 PORT=5000
-MONGO_URI=mongodb://localhost:27017/resumebuilder
+Postgres_URI=postgres://localhost:27017/resumebuilder
 
 
 Run backend server:
@@ -66,7 +82,7 @@ The frontend runs on:
 👉 http://localhost:5173
 
 The backend runs on:
-👉 http://localhost:5000
+👉 http://localhost:4000
 
 📌 API Endpoints
 Create Resume
