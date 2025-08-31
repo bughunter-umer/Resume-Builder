@@ -1,0 +1,10 @@
+model Resume {
+  id         Int      @id @default(autoincrement())
+  name       String
+  email      String
+  phone      String?
+  education  String?
+  experience String?
+  skills     String   // store comma separated values like "React,Node,SQL"
+  createdAt  DateTime @default(now())
+}
