@@ -1,10 +1,11 @@
 model Resume {
-  id         Int      @id @default(autoincrement())
-  name       String
-  email      String
-  phone      String?
-  education  String?
-  experience String?
-  skills     String   // store comma separated values like "React,Node,SQL"
-  createdAt  DateTime @default(now())
+  id          Int      @id @default(autoincrement())
+  name        String
+  email       String
+  phone       String?
+  address     String?
+  education   String?
+  experience  Json?     // for multiple jobs
+  projects    Json?     // for multiple projects
+  skills      Json?     // array of skills
 }

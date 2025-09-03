@@ -6,76 +6,126 @@ export default function ResumeForm({ setResumeData }) {
     email: "",
     phone: "",
     education: "",
-    skills: ""
+    skills: "",
+    address: "",
+    experience: "",
+    projects: "",
+    photo: "",
   });
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  // ✅ Convert uploaded image to Base64
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData({ ...formData, photo: reader.result }); // Base64 string
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setResumeData(formData); // Send data to App
+
+    try {
+      const res = await fetch("http://localhost:4000/api/resumes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (!res.ok) throw new Error("Failed to save resume");
+
+      const data = await res.json();
+      setResumeData(data);
+      alert("Resume saved successfully!");
+    } catch (err) {
+      console.error("❌ Error:", err);
+      alert("Error saving resume!");
+    }
   };
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="max-w-lg mx-auto bg-white shadow-lg rounded-2xl p-6 space-y-4 border border-gray-200"
+      className="bg-white shadow-lg rounded-2xl p-6 w-full max-w-lg mx-auto mt-6 space-y-4"
     >
-      <h2 className="text-2xl font-semibold text-center text-indigo-600 mb-4">
-        Enter Your Resume Details
+      <h2 className="text-2xl font-bold text-blue-600 text-center">
+        Create Your Resume
       </h2>
 
       <input
-        type="text"
+        className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
         name="name"
         placeholder="Full Name"
-        value={formData.name}
         onChange={handleChange}
-        className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+        required
       />
-
       <input
-        type="email"
+        className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
         name="email"
+        type="email"
         placeholder="Email"
-        value={formData.email}
         onChange={handleChange}
-        className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+        required
       />
-
       <input
-        type="text"
+        className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
         name="phone"
-        placeholder="Phone Number"
-        value={formData.phone}
+        placeholder="Phone"
         onChange={handleChange}
-        className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
       />
-
       <input
-        type="text"
+        className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        name="address"
+        placeholder="Address"
+        onChange={handleChange}
+      />
+      <textarea
+        className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        name="experience"
+        placeholder="Work Experience"
+        rows="3"
+        onChange={handleChange}
+      />
+      <textarea
+        className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        name="projects"
+        placeholder="Projects"
+        rows="3"
+        onChange={handleChange}
+      />
+      <input
+        className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
         name="education"
         placeholder="Education"
-        value={formData.education}
         onChange={handleChange}
-        className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
       />
-
-      <textarea
+      <input
+        className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
         name="skills"
         placeholder="Skills (comma separated)"
-        value={formData.skills}
         onChange={handleChange}
-        className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none min-h-[100px]"
+      />
+
+      {/* ✅ File Upload */}
+      <input
+        type="file"
+        accept="image/*"
+        onChange={handleFileChange}
+        className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
 
       <button
         type="submit"
-        className="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700 transition-all"
+        className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
       >
-        Generate Resume
+        Save Resume
       </button>
     </form>
   );
