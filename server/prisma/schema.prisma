@@ -3,7 +3,7 @@ model Resume {
   name        String
   email       String
   phone       String?
-  address     String?
+  address     String?   //for multiple address
   education   String?
   experience  Json?     // for multiple jobs
   projects    Json?     // for multiple projects
