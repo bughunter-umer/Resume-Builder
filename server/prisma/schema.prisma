@@ -9,3 +9,4 @@ model Resume {
   projects    Json?     // for multiple projects
   skills      Json?     // array of skills
 }
+
